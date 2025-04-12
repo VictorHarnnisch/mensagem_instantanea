@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem Instantânea</title>
+    <link rel="stylesheet" type="text/css" href="./css/estilo.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="top-bar">
+        <img src="./img/Logo.png" alt="Logo Mensagem Instantânea" style="height: 50px; margin-right: 10px; vertical-align: middle;">
+        <h1>Mensagem Instantânea</h1>
+    </div>
+
+    <div id="chat-container">
+        <p>Bem-vindo ao Mensagem Instantânea!</p>
+    </div>
+
+    <div id="input-container">
+        <input type="text" id="usuario" placeholder="Usuário" required>
+        <div style="width: 10px;"></div>
+        <input type="text" id="mensagem" placeholder="Mensagem" required>
+        <button id="botao">Enviar</button>
+    </div>
+
+    <main style="display: none;">
+        <p>Clique no botão abaixo para iniciar o chat:</p>
+        <a href="http://localhost:8000" target="_blank">Iniciar Chat (Flet)</a>
+    </main>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var socket = io("http://localhost:5000");
+
+            socket.on("connect", function() {
+                console.log("Conectado ao servidor WebSocket");
+            });
+
+            socket.on("message", function(data) {
+                console.log("Mensagem recebida:", data);
+                $("#chat-container").append($('<p class="sent">').text(data)); // Sua mensagem enviada
+
+                // Simulando uma mensagem recebida
+                $("#chat-container").append($('<p class="received">').text("Mensagem de outro usuário!"));
+
+                $("#chat-container").scrollTop($("#chat-container")[0].scrollHeight);
+            });
+
+            $("#botao").on('click', function() {
+                var usuario = $('#usuario').val();
+                var mensagem = $('#mensagem').val();
+            if (usuario && mensagem) {
+                var mensagemCompleta = usuario + ": " + mensagem;
+                $("#chat-container").append($('<p class="sent">').text(mensagemCompleta));
+                $('#mensagem').val('');
+                // socket.emit('message', usuario + ": " + mensagem); // Comente ou remova esta linha por enquanto
+                $("#chat-container").scrollTop($("#chat-container")[0].scrollHeight);
+            } else {
+});
+            $("#mensagem").on('keypress', function(event) {
+                if (event.key === "Enter") {
+                    var usuario = $('#usuario').val();
+                    var mensagem = $('#mensagem').val();
+                    if (usuario && mensagem) {
+                        socket.emit('message', usuario + ": " + mensagem);
+                        $('#mensagem').val('');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

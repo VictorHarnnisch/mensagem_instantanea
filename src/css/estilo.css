@@ -1,0 +1,94 @@
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to top,#5265af, #1E3A8A); /* Azul mais claro em baixo, escurecendo para cima */
+        }
+
+        #top-bar {
+            background-color:  #ca3737; /* Vermelho */
+            color: #FFF;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #chat-container {
+            padding: 10px;
+            height: calc(100vh - 150px);
+            overflow-y: scroll;
+        }
+
+        #chat-container p {
+            background-color: #32ac7d;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            color: #fcf9f9;
+        }
+
+        #chat-container p.sent {
+            background-color: #DCF8C6; /* Cor padrão para mensagens enviadas */
+            align-self: flex-end; /* Alinha à direita dentro de um flex container */
+        }
+        
+        #chat-container p.received {
+            background-color: #32ac7d; /* Cor padrão para mensagens recebidas */
+            align-self: flex-start; /* Alinha à esquerda dentro de um flex container */
+            color: white; /* Texto branco para melhor contraste com o verde */
+        }
+
+        #chat-container {
+            padding: 10px;
+            height: calc(100vh - 150px);
+            overflow-y: scroll;
+            display: flex; /* Habilita o flexbox para o alinhamento das mensagens */
+            flex-direction: column; /* Garante que as mensagens fiquem em coluna */
+        }
+
+        #input-container {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #F4F4F4;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #input-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc; /* Adiciona uma borda cinza clara */
+            outline: none;
+            flex: 1;
+            border-radius: 5px; /* Adiciona um arredondamento inicial */
+        }
+
+        #input-container input#usuario {
+            margin-right: 10px;
+            width: 30%;
+        }
+
+        #input-container input#mensagem {
+            flex: 1;
+        }
+
+        #input-container button {
+            padding: 10px 20px;
+            background-color: #075E54;
+            color: #FFF;
+            border: 1px solid #075E54; /* Adiciona uma borda da mesma cor do fundo */
+            outline: none;
+            cursor: pointer;
+            margin-left: 10px;
+            border-radius: 5px; /* Adiciona um arredondamento inicial */
+        }
+
+        #input-container button:hover {
+            background-color: #054a41; /* Um tom mais escuro ao passar o mouse */
+            border-color: #054a41;
+        }
